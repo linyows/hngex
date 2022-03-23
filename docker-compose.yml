@@ -1,0 +1,27 @@
+version: '3'
+services:
+  imap:
+    hostname: imap
+    build: ./imap
+    ports:
+      - "2524"
+      - "2525"
+      - "10143:143"
+      - "10993:993"
+    volumes:
+      - ./imap/dovecot.conf:/etc/dovecot/dovecot.conf
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+  smtp:
+    hostname: smtp
+    build: ./smtp
+    ports:
+      - "10025:25"
+      - "10465:465"
+    volumes:
+      - ./smtp/main.cf:/etc/postfix/main.cf
+      - ./smtp/master.cf:/etc/postfix/master.cf
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    depends_on:
+      - imap
