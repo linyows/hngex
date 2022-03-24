@@ -22,7 +22,7 @@ services:
     hostname: imap
     build: ./imap
     ports:
-      - "2524"
+      - "24"
       - "2525"
       - "10143:143"
       - "10993:993"
