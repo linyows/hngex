@@ -1,5 +1,23 @@
 version: '3'
 services:
+  http:
+    image: nginx:latest
+    profiles: ["cert"]
+    ports:
+      - "80:80"
+    volumes:
+      - ./http/html:/usr/share/nginx/html
+      - ./certs:/etc/letsencrypt
+      - /etc/localtime:/etc/localtime:ro
+  cert:
+    image: certbot/certbot:latest
+    profiles: ["cert"]
+    volumes:
+      - ./http/html:/html
+      - ./certs/letsencrypt:/etc/letsencrypt
+    command: [certonly --agree-tos --webroot -w /html -d hngex.email]
+    depends_on:
+      - http
   imap:
     hostname: imap
     build: ./imap
@@ -10,6 +28,7 @@ services:
       - "10993:993"
     volumes:
       - ./imap/dovecot.conf:/etc/dovecot/dovecot.conf
+      - ./certs:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
   smtp:
@@ -21,6 +40,7 @@ services:
     volumes:
       - ./smtp/main.cf:/etc/postfix/main.cf
       - ./smtp/master.cf:/etc/postfix/master.cf
+      - ./certs:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
     depends_on:

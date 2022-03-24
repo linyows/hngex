@@ -1,8 +1,8 @@
 # See /usr/share/postfix/main.cf.dist for a commented, more complete version
 
 maillog_file = /dev/stdout
-myhostname = smtp.example.com
-mydomain = example.com
+myhostname = hngex.email
+mydomain = hngex.email
 
 smtpd_banner = $myhostname ESMTP
 biff = no
@@ -26,8 +26,10 @@ inet_protocols = all
 # TLS parameters
 # These [snakeoil files actually exist](https://askubuntu.com/questions/396120/what-is-the-purpose-of-the-ssl-cert-snakeoil-key), but shouldn't ever be used in production!
 # If no `SSL_TYPE` env is set, "plaintext" is configured, but still accepts SSL with these:
-smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_cert_file=/etc/letsencrypt/live/hngex.email/fullchain.pem
+smtpd_tls_key_file=/etc/letsencrypt/live/hngex.email/privkey.pem
+#smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+#smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 smtpd_tls_security_level=may
 
 smtp_tls_CApath=/etc/ssl/certs
