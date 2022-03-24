@@ -24,8 +24,7 @@ services:
     ports:
       - "24"
       - "2525"
-      - "10143:143"
-      - "10993:993"
+      - "993:993"
     volumes:
       - ./imap/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./certs:/etc/letsencrypt
@@ -35,8 +34,8 @@ services:
     hostname: smtp
     build: ./smtp
     ports:
-      - "10025:25"
-      - "10465:465"
+      - "25:25"
+      - "587:587"
     volumes:
       - ./smtp/main.cf:/etc/postfix/main.cf
       - ./smtp/master.cf:/etc/postfix/master.cf
