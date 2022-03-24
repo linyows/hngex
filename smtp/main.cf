@@ -38,6 +38,7 @@ smtp_tls_security_level=may
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 smtpd_tls_loglevel = 1
 smtp_tls_loglevel = 1
+smtpd_tls_received_header = yes
 
 # Reduces CPU overhead with `NO_COMPRESSION`, SMTP not at risk of CRIME attack (see git blame for details)
 # Reduce opportunities for a potential CPU exhaustion attack with `NO_RENEGOTIATION`
