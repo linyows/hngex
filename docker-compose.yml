@@ -23,6 +23,7 @@ services:
       - "2525"
       - "993:993"
     volumes:
+      - ./imap/users:/etc/dovecot/users
       - ./imap/dovecot.conf:/etc/dovecot/dovecot.conf
       - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
