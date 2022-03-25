@@ -2,7 +2,6 @@ version: '3'
 services:
   http:
     image: nginx:latest
-    profiles: ["cert"]
     ports:
       - "80:80"
     volumes:
@@ -11,7 +10,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
   cert:
     image: certbot/certbot:latest
-    profiles: ["cert"]
     volumes:
       - ./http/html:/html
       - ./certs/letsencrypt:/etc/letsencrypt
