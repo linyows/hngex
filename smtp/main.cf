@@ -2,7 +2,6 @@
 
 maillog_file = /dev/stdout
 myhostname = hngex.email
-mydomain = hngex.email
 
 smtpd_banner = $myhostname ESMTP
 biff = no
