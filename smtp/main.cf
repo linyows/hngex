@@ -94,7 +94,7 @@ broken_sasl_auth_clients = yes
 virtual_transport = lmtp:inet:imap:24
 #virtual_transport = lmtp:unix:/var/run/dovecot/lmtp
 #virtual_mailbox_domains = /etc/postfix/vhost
-#virtual_mailbox_maps = texthash:/etc/postfix/vmailbox
+virtual_mailbox_maps = hash:/etc/postfix/vmailbox
 #virtual_alias_maps = texthash:/etc/postfix/virtual
 
 # Additional option for filtering
