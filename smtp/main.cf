@@ -53,7 +53,7 @@ smtpd_tls_mandatory_protocols = !SSLv2,!SSLv3,!TLSv1,!TLSv1.1
 smtpd_tls_exclude_ciphers = aNULL, SEED, CAMELLIA, RSA+AES
 #smtpd_tls_dh1024_param_file = /etc/postfix/dhparams.pem
 
-# Settings to prevent SPAM early
+# Settings to prevent SPAM relay
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 smtpd_helo_required = yes
 smtpd_delay_reject = yes
