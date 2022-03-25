@@ -24,6 +24,6 @@ RUN apt-get -y update && apt-get -y install \
   chmod +x /sbin/tini && \
   make-ssl-cert generate-default-snakeoil
 
-EXPOSE 143 993 24 2525
+EXPOSE 993 24 2525
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/usr/sbin/dovecot", "-F"]
