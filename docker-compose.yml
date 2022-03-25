@@ -6,8 +6,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./http/html:/usr/share/nginx/html
-      - ./certs:/etc/letsencrypt
+      - ./http/hngex.email.conf:/etc/nginx/conf.d/hngex.email.conf
+      - ./http/html:/var/www/html
+      - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
   cert:
     image: certbot/certbot:latest
@@ -26,7 +27,7 @@ services:
       - "993:993"
     volumes:
       - ./imap/dovecot.conf:/etc/dovecot/dovecot.conf
-      - ./certs:/etc/letsencrypt
+      - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
   smtp:
@@ -38,7 +39,7 @@ services:
     volumes:
       - ./smtp/main.cf:/etc/postfix/main.cf
       - ./smtp/master.cf:/etc/postfix/master.cf
-      - ./certs:/etc/letsencrypt
+      - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
     depends_on:
