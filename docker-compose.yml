@@ -15,9 +15,6 @@ services:
     volumes:
       - ./http/html:/html
       - ./certs/letsencrypt:/etc/letsencrypt
-    command: [certonly --agree-tos --webroot -w /html -d hngex.email]
-    depends_on:
-      - http
   imap:
     hostname: imap
     build: ./imap
