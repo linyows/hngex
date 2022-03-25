@@ -21,6 +21,9 @@ RUN apt-get -y update && apt-get -y install \
   groupadd -g 1000 vmail && \
   useradd -u 1000 -g 1000 vmail && \
   passwd -l vmail && \
+  mkdir /home/vmail && \
+  chown vmail:vmail /home/vmail && \
+  chmod o+w /home/vmail && \
   chmod +x /sbin/tini && \
   make-ssl-cert generate-default-snakeoil
 
