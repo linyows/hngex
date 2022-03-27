@@ -35,6 +35,8 @@ services:
       - "25:25"
       - "587:587"
     volumes:
+      - ./data/queue:/var/spool/postfix
+      - empty:/var/spool/postfix/etc
       - ./smtp/vmailbox:/etc/postfix/vmailbox
       - ./smtp/main.cf:/etc/postfix/main.cf
       - ./smtp/master.cf:/etc/postfix/master.cf
@@ -43,3 +45,5 @@ services:
     restart: always
     depends_on:
       - imap
+volumes:
+  empty:
