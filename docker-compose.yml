@@ -1,4 +1,6 @@
 version: '3'
+volumes:
+  empty:
 services:
   http:
     image: nginx:latest
@@ -61,5 +63,3 @@ services:
     restart: always
     depends_on:
       - imap
-volumes:
-  empty:
