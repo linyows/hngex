@@ -29,14 +29,29 @@ services:
       - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
+  mx:
+    hostname: mx
+    build: ./smtp
+    ports:
+      - "25:25"
+    volumes:
+      - ./data/mx:/var/spool/postfix
+      - empty:/var/spool/postfix/etc
+      - ./smtp/vmailbox:/etc/postfix/vmailbox
+      - ./smtp/main.cf:/etc/postfix/main.cf
+      - ./smtp/master.cf:/etc/postfix/master.cf
+      - ./certs/letsencrypt:/etc/letsencrypt
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    depends_on:
+      - imap
   smtp:
     hostname: smtp
     build: ./smtp
     ports:
-      - "25:25"
       - "587:587"
     volumes:
-      - ./data/queue:/var/spool/postfix
+      - ./data/smtp:/var/spool/postfix
       - empty:/var/spool/postfix/etc
       - ./smtp/vmailbox:/etc/postfix/vmailbox
       - ./smtp/main.cf:/etc/postfix/main.cf
