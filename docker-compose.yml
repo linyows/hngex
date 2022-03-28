@@ -63,3 +63,14 @@ services:
     restart: always
     depends_on:
       - imap
+  smtp-proxy:
+    hostname: smtp-proxy
+    build: ./smtp-proxy
+    ports:
+      - "25"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    restart: always
