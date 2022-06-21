@@ -19,6 +19,7 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
+#smtp_bind_address = 172.20.0.2
 
 #smtp_host_lookup = native
 #smtp_dns_support_level = disabled
@@ -84,19 +85,19 @@ allow_untrusted_routing = no
 # SASL
 smtpd_sasl_auth_enable = yes
 #smtpd_sasl_path = /var/spool/postfix/private/auth
-smtpd_sasl_path = inet:imap:2525
+smtpd_sasl_path = inet:localhost:2525
 smtpd_sasl_type = dovecot
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain = $mydomain
 broken_sasl_auth_clients = yes
 
 # Mail directory
-virtual_transport = lmtp:inet:imap:24
+virtual_transport = lmtp:inet:localhost:24
 #virtual_transport = lmtp:unix:/var/run/dovecot/lmtp
 #virtual_mailbox_domains = /etc/postfix/vhost
 virtual_mailbox_maps = hash:/etc/postfix/vmailbox
 #virtual_alias_maps = texthash:/etc/postfix/virtual
-local_transport = lmtp:inet:imap:24
+local_transport = lmtp:inet:localhost:24
 local_recipient_maps = hash:/etc/postfix/vmailbox
 
 # Additional option for filtering

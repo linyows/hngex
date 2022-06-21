@@ -20,10 +20,10 @@ services:
   imap:
     hostname: imap
     build: ./imap
-    ports:
-      - "24"
-      - "2525"
-      - "993:993"
+      #ports:
+      #  - "24"
+      #  - "2525"
+      #  - "993:993"
     volumes:
       - ./data/mail:/mail
       - ./imap/users:/etc/dovecot/users
@@ -31,29 +31,15 @@ services:
       - ./certs/letsencrypt:/etc/letsencrypt
       - /etc/localtime:/etc/localtime:ro
     restart: always
-  mx:
-    hostname: mx
-    build: ./smtp
-    ports:
-      - "25:25"
-    volumes:
-      - ./data/mx:/var/spool/postfix
-      - empty:/var/spool/postfix/etc
-      - ./smtp/vmailbox:/etc/postfix/vmailbox
-      - ./smtp/main.cf:/etc/postfix/main.cf
-      - ./smtp/master.cf:/etc/postfix/master.cf
-      - ./certs/letsencrypt:/etc/letsencrypt
-      - /etc/localtime:/etc/localtime:ro
-    restart: always
-    depends_on:
-      - imap
+    network_mode: "host"
   smtp:
     hostname: smtp
     build: ./smtp
-    ports:
-      - "587:587"
+      #ports:
+      #  - "25:25"
+      #  - "587:587"
     volumes:
-      - ./data/smtp:/var/spool/postfix
+      - ./data/queue:/var/spool/postfix
       - empty:/var/spool/postfix/etc
       - ./smtp/vmailbox:/etc/postfix/vmailbox
       - ./smtp/main.cf:/etc/postfix/main.cf
@@ -63,14 +49,19 @@ services:
     restart: always
     depends_on:
       - imap
+    network_mode: "host"
   smtp-proxy:
     hostname: smtp-proxy
     build: ./smtp-proxy
-    ports:
-      - "25"
+    command: /sbin/warp -ip 0.0.0.0 -port 10025
+      #ports:
+      #  - "10025"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    cap_add:
-      - NET_ADMIN
-      - SYS_PTRACE
+      - ../warp/warp:/sbin/warp
+        #cap_add:
+        #  - NET_ADMIN
+        #  - SYS_PTRACE
+    privileged: true
+    network_mode: "host"
     restart: always
